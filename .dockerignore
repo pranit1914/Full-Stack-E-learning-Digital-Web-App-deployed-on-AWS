@@ -1,0 +1,10 @@
+.git
+.gitignore
+**/node_modules
+**/dist
+server/.env
+server/.env.example
+frontend/.env*
+frontend/README.md
+server/uploads/*
+*.log

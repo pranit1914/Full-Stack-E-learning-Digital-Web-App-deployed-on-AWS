@@ -1,0 +1,21 @@
+.courses {
+  padding: 70px clamp(20px, 6vw, 84px);
+  min-height: 100vh;
+  background: #f7f8f5;
+}
+
+.courses h2 {
+  text-align: center;
+  margin: 0 auto 42px;
+  max-width: 1200px;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: #102a2b;
+}
+
+.course-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  max-width: 1200px;
+  margin: auto;
+}

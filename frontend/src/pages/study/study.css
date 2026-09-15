@@ -1,0 +1,16 @@
+.study-page { max-width: 1180px; margin: 0 auto; padding: 45px 24px 100px; color: #102a2b; }
+.back-link { border: 0; padding: 0; background: transparent; color: #68736d; font: inherit; cursor: pointer; }
+.study-heading { margin: 42px 0 28px; }
+.study-heading h1 { margin: 5px 0 10px; font-size: clamp(2rem, 5vw, 3.5rem); }
+.study-heading > p:last-child { color: #68736d; }
+.study-layout { display: grid; grid-template-columns: 1.5fr .7fr; gap: 18px; align-items: start; }
+.video-panel, .lesson-list { background: #fffdf8; border: 1px solid #dce5dc; border-radius: 8px; padding: 22px; }
+.video-panel video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #102a2b; border-radius: 5px; margin-bottom: 25px; }
+.video-panel h2 { margin: 5px 0 10px; }
+.video-panel > p:last-child { color: #68736d; line-height: 1.6; }
+.lesson-list { display: grid; gap: 8px; }
+.lesson-list .eyebrow { margin-bottom: 8px; }
+.lesson-list button { display: flex; align-items: center; gap: 12px; padding: 14px 10px; border: 0; border-left: 3px solid transparent; background: transparent; color: #53625a; text-align: left; font: inherit; cursor: pointer; }
+.lesson-list button span { color: #e26d4d; font-size: 12px; font-weight: 700; }
+.lesson-list button:hover, .lesson-list button.active { border-left-color: #e26d4d; background: #f1f5ef; color: #102a2b; font-weight: 700; }
+@media (max-width: 800px) { .study-layout { grid-template-columns: 1fr; } }

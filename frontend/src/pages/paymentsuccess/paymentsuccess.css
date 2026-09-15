@@ -1,0 +1,35 @@
+.payment-success-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+  padding: 50px 20px;
+  background: radial-gradient(circle at 80% 20%, #f7c873 0 12%, transparent 12.2%), #eaf0e9;
+
+  .success-message {
+    background-color: #fffdf8;
+    padding: 48px 36px;
+    border: 1px solid #dce5dc;
+    border-radius: 10px;
+    box-shadow: 12px 12px 0 #102a2b;
+    text-align: center;
+    width: min(100%, 460px);
+  }
+
+  h2 {
+    font-size: 34px;
+    color: #102a2b;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #53625a;
+    margin-bottom: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    display: inline-block;
+  }
+}

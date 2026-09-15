@@ -1,0 +1,80 @@
+.ai-tutor-page {
+  min-height: 70vh;
+  padding: 4rem 1.5rem;
+  background: linear-gradient(135deg, #f8f4ff 0%, #fff9f0 100%);
+}
+
+.ai-tutor-panel {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border: 1px solid #eadff4;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(55, 32, 76, 0.1);
+}
+
+.ai-tutor-label {
+  margin: 0 0 0.75rem;
+  color: #8a4baf;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.ai-tutor-panel h1 {
+  margin: 0;
+  color: #28202d;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.ai-tutor-intro {
+  max-width: 600px;
+  color: #625a66;
+  line-height: 1.6;
+}
+
+.ai-tutor-panel textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid #d9cde0;
+  border-radius: 8px;
+  color: #28202d;
+  font: inherit;
+  resize: vertical;
+}
+
+.ai-tutor-panel textarea:focus {
+  outline: 2px solid #b889cc;
+  border-color: #8a4baf;
+}
+
+.ai-tutor-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ai-answer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eadff4;
+}
+
+.ai-answer h2 {
+  margin: 0 0 0.5rem;
+  color: #8a4baf;
+  font-size: 1.1rem;
+}
+
+.ai-answer p {
+  white-space: pre-wrap;
+  color: #382e3e;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .ai-tutor-panel {
+    padding: 1.5rem;
+  }
+}

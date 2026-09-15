@@ -1,0 +1,35 @@
+.course-card {
+  background: #fff;
+  border: 1px solid #e2e6df;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(16, 42, 43, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding-bottom: 24px;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(16, 42, 43, 0.12);
+}
+
+.course-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.course-card h3 {
+  margin: 20px 20px 10px;
+  font-size: 20px;
+  color: #102a2b;
+}
+
+.course-card p {
+  margin: 8px 20px;
+  color: #68736d;
+  font-size: 15px;
+}
+
+.common-btn {
+}
