@@ -5,3 +5,4 @@ dist/
 server/.env
 frontend/.env*
 server/uploads/*
+k8s/secret.yaml

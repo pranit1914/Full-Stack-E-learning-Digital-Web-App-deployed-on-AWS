@@ -3,8 +3,8 @@ import { Ratelimit } from "@upstash/ratelimit";
 
 // connect redis
 const redis = new Redis({
-  url: "https://patient-possum-101903.upstash.io",  // ✅ string
-  token: "gQAAAAAAAY4PAAIocDJmYWM5YmE4OWUwOTM0MjhkODU2OGY4NzhkYThmZjYxZXAyMTAxOTAz", // ✅ string
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
 console.log("👍👍 Redis working correctly");
