@@ -512,6 +512,7 @@ token: <JWT_TOKEN>
 | POST   | `/api/user/analytics/events` | JWT    | Record learning event   |
 | POST   | `/api/ai/ask`                | JWT    | Ask AI tutor            |
 
+
 ---
 
 ## 👨‍💼 Admin APIs
