@@ -1,6 +1,6 @@
 # 🎓 E-Learning Platform
 
-A full-stack **E-Learning Platform** built with the MERN stack, providing secure course management, video-based learning, online payments, OTP authentication, AI-powered tutoring, learning analytics, and an admin dashboard.
+A full-stack **E-Learning Platform** built with the MERN stack, providing secure course management, video-based learning, online payments, OTP authentication, AI-powered tutoring, learning analytics, and an admin dashboard. 
 
 The platform uses **Amazon S3 for private media storage**, **Razorpay for payments**, **Redis for distributed rate limiting**, and an **OpenAI-compatible API for the AI tutor**.
 
