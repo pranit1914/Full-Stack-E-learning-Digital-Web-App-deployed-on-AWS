@@ -1,200 +1,84 @@
-# 🎓 E-Learning Platform
+# E-Learning Platform
 
-A full-stack **E-Learning Platform** built with the MERN stack, providing secure course management, video-based learning, online payments, OTP authentication, AI-powered tutoring, learning analytics, and an admin dashboard. 
+Full-stack e-learning platform with course management, video lectures, secure media uploads, OTP-based registration, password recovery, online payments, an AI tutor, learning analytics, and an admin dashboard.
 
-The platform uses **Amazon S3 for private media storage**, **Razorpay for payments**, **Redis for distributed rate limiting**, and an **OpenAI-compatible API for the AI tutor**.
+## Features
 
----
+- User registration with email OTP verification
+- JWT authentication and protected routes
+- Login, logout, profile management, profile pictures, and certificates
+- Forgot-password and reset-password email flow
+- Course browsing and course detail pages
+- Admin course creation, lecture uploads, course deletion, and lecture deletion
+- Private course images and lecture videos stored in Amazon S3
+- One-hour presigned S3 URLs for private media playback
+- Razorpay course checkout and payment signature verification
+- AI tutor powered by the OpenAI Chat Completions API
+- Student dashboard with learning analytics and event tracking
+- Redis-backed rate limiting for login and OTP registration requests
+- MongoDB persistence with Mongoose
+- Docker Compose deployment with MongoDB, Express, and Nginx
+- Responsive React frontend with React Router and toast notifications
 
-## 🚀 Features
+## Tech Stack
 
-### 👤 Authentication & User Management
+### Frontend
 
-* User registration with email OTP verification
-* JWT-based authentication
-* Protected API routes
-* Login and logout
-* User profile management
-* Profile picture uploads
-* Certificate uploads
-* Forgot-password functionality
-* Secure password reset through email
+- React 19
+- Vite
+- React Router
+- Axios
+- React Icons
+- React Hot Toast
+- Nginx for production serving and API reverse proxying
 
-### 📚 Course Management
+### Backend
 
-* Browse available courses
-* Course details and lecture information
-* Admin course creation
-* Course image uploads
-* Lecture creation and video uploads
-* Lecture deletion
-* Course deletion
-* Purchased-course dashboard
-* Protected access to course lectures
+- Node.js 22+
+- Express 5
+- MongoDB and Mongoose
+- JSON Web Tokens
+- bcrypt password hashing
+- Nodemailer with Gmail SMTP
+- Razorpay payments
+- OpenAI-compatible AI API
+- Upstash Redis and `@upstash/ratelimit`
+- AWS SDK for S3 uploads and presigned URLs
+- Multer for multipart file uploads
 
-### ☁️ Secure Media Storage
-
-* Course images stored in Amazon S3
-* Lecture videos stored in private S3 objects
-* Profile pictures stored in S3
-* Certificates stored in S3
-* S3 public access blocked
-* One-hour presigned URLs for secure media access
-* S3 object deletion when courses/lectures are removed
-
-### 💳 Online Payments
-
-* Razorpay course checkout
-* Server-side payment order creation
-* Razorpay payment signature verification
-* Course access after successful payment
-
-### 🤖 AI Tutor
-
-* AI-powered tutor for students
-* JWT-protected AI API
-* OpenAI Chat Completions API integration
-* Configurable AI model
-* Support for OpenAI-compatible API providers
-
-### 📊 Learning Analytics
-
-* Student learning dashboard
-* Learning event tracking
-* Course progress analytics
-* User-specific analytics
-* Platform statistics for administrators
-
-### 🔐 Security
-
-* JWT authentication
-* bcrypt password hashing
-* OTP-based registration
-* Password reset flow
-* Redis-backed rate limiting
-* Private S3 objects
-* Presigned URLs
-* Admin role-based authorization
-* Environment-based secret management
-* Protected payment verification
-* Sensitive credentials excluded from source control
-
-### ⚡ Performance & Infrastructure
-
-* Dockerized application
-* Docker Compose deployment
-* Nginx reverse proxy
-* MongoDB persistent storage
-* Redis-backed distributed rate limiting
-* Production-oriented frontend build using Vite
-* Backend health checks
-
----
-
-# 🏗️ Architecture
+## Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │      React + Vite    │
-                    │      Frontend        │
-                    └──────────┬───────────┘
-                               │
-                         /api requests
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │        Nginx         │
-                    │  Reverse Proxy       │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Node.js + Express  │
-                    │      REST API        │
-                    └─────┬────┬────┬──────┘
-                          │    │    │
-              ┌───────────┘    │    └──────────────┐
-              │                │                   │
-              ▼                ▼                   ▼
-       ┌─────────────┐  ┌─────────────┐   ┌──────────────┐
-       │   MongoDB   │  │   Amazon S3  │   │   Upstash    │
-       │  Database   │  │ Private Media│   │    Redis     │
-       └─────────────┘  └─────────────┘   └──────────────┘
-              │
-              │
-      ┌───────┴────────┐
-      │                │
-      ▼                ▼
-┌─────────────┐  ┌─────────────┐
-│  Razorpay   │  │ AI Provider │
-│  Payments   │  │ OpenAI API  │
-└─────────────┘  └─────────────┘
-
-          ┌───────────────────┐
-          │    Gmail SMTP     │
-          │ OTP / Reset Email │
-          └───────────────────┘
+React/Vite frontend
+        |
+        | /api and /uploads
+        v
+Nginx reverse proxy (Docker)
+        |
+        v
+Express API ------ MongoDB
+   |   |  |  \
+   |   |  |   \-- OpenAI-compatible AI API
+   |   |  \------ Razorpay
+   |   \--------- Gmail SMTP
+   \------------- AWS S3 private media
+          \
+           \---- Upstash Redis rate limiting
 ```
 
----
-
-# 🛠️ Tech Stack
-
-## Frontend
-
-| Technology      | Purpose                            |
-| --------------- | ---------------------------------- |
-| React 19        | UI development                     |
-| Vite            | Frontend build tool                |
-| React Router    | Client-side routing                |
-| Axios           | HTTP requests                      |
-| React Icons     | UI icons                           |
-| React Hot Toast | Notifications                      |
-| Nginx           | Production serving & reverse proxy |
-
-## Backend
-
-| Technology  | Purpose                |
-| ----------- | ---------------------- |
-| Node.js 22+ | Runtime                |
-| Express 5   | REST API               |
-| MongoDB     | Database               |
-| Mongoose    | MongoDB ODM            |
-| JWT         | Authentication         |
-| bcrypt      | Password hashing       |
-| Nodemailer  | Email delivery         |
-| Razorpay    | Payment processing     |
-| OpenAI API  | AI tutor               |
-| Multer      | Multipart file uploads |
-| AWS SDK     | S3 integration         |
-
-## Cloud & Infrastructure
-
-* Amazon S3
-* AWS IAM
-* Upstash Redis
-* Docker
-* Docker Compose
-* Nginx
-
----
-
-# 📂 Project Structure
+## Project Structure
 
 ```text
 .
 ├── docker-compose.yml
-│
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── context/
 │   │   └── pages/
-│   │
 │   ├── Dockerfile
 │   ├── nginx.conf
 │   └── package.json
-│
 └── server/
     ├── controllers/
     ├── database/
@@ -203,57 +87,45 @@ The platform uses **Amazon S3 for private media storage**, **Razorpay for paymen
     ├── routes/
     ├── utils/
     ├── Dockerfile
-    ├── S3_SETUP.md
     └── package.json
 ```
 
----
+## Prerequisites
 
-# ⚙️ Prerequisites
+- Node.js 22 or later
+- npm
+- MongoDB, or Docker Desktop
+- An SMTP email account for OTP and reset emails
+- AWS S3 bucket for private media uploads
+- Razorpay account for payments
+- OpenAI API key for the AI tutor
+- Upstash Redis database for distributed rate limiting
 
-Before running the project, make sure you have:
+## Environment Configuration
 
-* Node.js 22 or later
-* npm
-* MongoDB or Docker Desktop
-* AWS account with an S3 bucket
-* AWS IAM permissions for S3
-* Gmail account with an App Password or transactional email provider
-* Razorpay account
-* OpenAI API key
-* Upstash Redis database
+Copy the server template:
 
----
-
-# 🔐 Environment Configuration
-
-Create the backend environment file from the provided template.
-
-### Windows PowerShell
+### PowerShell
 
 ```powershell
 Copy-Item server/.env.example server/.env
 ```
 
-### macOS / Linux
+### macOS/Linux
 
 ```bash
 cp server/.env.example server/.env
 ```
 
-Configure `server/.env`:
+Configure `server/.env` with values for your environment:
 
 ```env
 PORT=5000
-
-# MongoDB
 MONGODB_URI=mongodb://localhost:27017/Elearning
 
-# JWT & Account Activation
+# JWT and email activation
 Jwt_Sec=replace-with-a-long-random-jwt-secret
 Activation_Secret=replace-with-a-long-random-activation-secret
-
-# Frontend
 FRONTEND_URL=http://localhost:5173
 
 # Gmail SMTP
@@ -264,11 +136,10 @@ Password=your-gmail-app-password
 Razorpay_Key=your-razorpay-key-id
 Razorpay_Secret=your-razorpay-key-secret
 
-# OpenAI
+# OpenAI-compatible AI provider
 OPENAI_API_KEY=your-openai-api-key
 OPENAI_MODEL=gpt-4o-mini
-
-# Optional OpenAI-compatible endpoint
+# Optional: use another OpenAI-compatible endpoint
 # OPENAI_API_URL=https://api.openai.com/v1/chat/completions
 
 # AWS S3
@@ -276,96 +147,53 @@ AWS_REGION=ap-south-1
 AWS_S3_BUCKET=your-unique-bucket-name
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
-
-# Upstash Redis
-UPSTASH_REDIS_REST_URL=https://your-database.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your-upstash-token
 ```
 
-> ⚠️ Never commit `.env` files, AWS credentials, Redis tokens, SMTP passwords, Razorpay secrets, or API keys to GitHub.
+The frontend uses same-origin `/api` requests by default. For a separately running backend, create `frontend/.env`:
 
----
-
-# ☁️ AWS S3 Setup
-
-The application stores course and user media in **private Amazon S3 objects**.
-
-The following files can be stored in S3:
-
-* Course images
-* Lecture videos
-* Profile pictures
-* Certificates
-
-The backend generates **presigned URLs** that allow temporary access to private objects.
-
-### Recommended S3 configuration
-
-1. Create an S3 bucket.
-2. Keep the bucket private.
-3. Enable **Block Public Access**.
-4. Configure an IAM policy with only the required permissions.
-5. Configure S3 CORS for your frontend domain.
-6. Use IAM roles when deploying on AWS.
-7. Use restricted credentials only when necessary for local development.
-
-Example required permissions:
-
-```text
-s3:ListBucket
-s3:PutObject
-s3:GetObject
-s3:DeleteObject
+```env
+VITE_API_URL=http://localhost:5000
 ```
 
-See the detailed S3 configuration guide:
+`VITE_API_URL` is compiled into the frontend at build time.
 
-```text
-server/S3_SETUP.md
-```
+## Redis and Rate Limiting
 
----
+The server uses Upstash Redis with sliding-window limits for login attempts and registration/OTP requests. Configure Redis through environment variables in production and never commit a Redis URL or token.
 
-# 🔐 Redis Rate Limiting
-
-The application uses **Upstash Redis** with `@upstash/ratelimit`.
-
-Redis is used for distributed rate limiting of sensitive authentication operations.
-
-Current limits:
-
-```text
-Login attempts:
-3 requests / minute / client IP
-
-Registration / OTP requests:
-3 requests / minute / client IP
-```
-
-Redis credentials must be loaded through environment variables.
+Before publishing this repository, rotate any Redis credential that may have been exposed and update `server/utils/rateLimiter.js` to read the connection details from environment variables, for example:
 
 ```env
 UPSTASH_REDIS_REST_URL=https://your-database.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your-upstash-token
 ```
 
-If Redis credentials were ever committed to Git or exposed publicly, **rotate them immediately**.
+The current rate limits are three requests per minute per client IP for login and registration attempts.
 
----
+## AWS S3 Media Storage
 
-# 🏃 Running Locally
+Course images, lecture videos, profile pictures, and certificates are uploaded to private S3 objects. The API returns presigned URLs that expire after one hour.
 
-## 1. Start MongoDB
+Use the detailed [S3 setup guide](server/S3_SETUP.md) to configure:
 
-You can use an existing MongoDB installation or Docker.
+1. A private bucket with public access blocked.
+2. An IAM policy allowing `ListBucket`, `PutObject`, `GetObject`, and `DeleteObject`.
+3. CORS for the frontend origin.
+4. An IAM role in production, or restricted access keys for local development.
+
+Never commit `server/.env`, AWS keys, SMTP credentials, payment secrets, or API keys.
+
+## Run Locally
+
+### 1. Start MongoDB
+
+Use a local MongoDB installation, or start only MongoDB with Docker:
 
 ```bash
 docker compose up -d db
 ```
 
----
-
-## 2. Start the Backend
+### 2. Start the backend
 
 ```bash
 cd server
@@ -373,17 +201,11 @@ npm install
 npm run dev
 ```
 
-Backend:
+The API runs at `http://localhost:5000`.
 
-```text
-http://localhost:5000
-```
+### 3. Start the frontend
 
----
-
-## 3. Start the Frontend
-
-Open another terminal:
+In another terminal:
 
 ```bash
 cd frontend
@@ -391,153 +213,79 @@ npm install
 npm run dev
 ```
 
-Frontend:
+The frontend runs at `http://localhost:5173`.
 
-```text
-http://localhost:5173
-```
+## Run with Docker Compose
 
-For a separately running backend, create:
-
-```text
-frontend/.env
-```
-
-and configure:
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-> `VITE_API_URL` is compiled into the frontend during the Vite build process.
-
----
-
-# 🐳 Running with Docker Compose
-
-Create and configure:
-
-```text
-server/.env
-```
-
-Then run from the project root:
+Create and configure `server/.env`, then from the project root run:
 
 ```bash
 docker compose up --build
 ```
 
-The application will start:
+Open `http://localhost`. Docker Compose starts:
 
-```text
-Frontend + Nginx → http://localhost
+- MongoDB on the internal Docker network
+- The backend on internal port `5000`
+- Nginx/frontend on port `80`
 
-Backend          → Internal port 5000
-
-MongoDB          → Internal Docker network
-```
-
-Docker Compose provides:
-
-* MongoDB container
-* Node.js/Express backend
-* React production build
-* Nginx reverse proxy
-* Persistent MongoDB volume
-* Persistent upload volume
-
-Open:
-
-```text
-http://localhost
-```
-
----
-
-## Stop the Application
+Persistent Docker volumes store MongoDB data and uploaded files. Stop the stack with:
 
 ```bash
 docker compose down
 ```
 
-To remove containers **and persistent volumes**:
+To remove the stored database and upload volumes as well:
 
 ```bash
 docker compose down -v
 ```
 
-> ⚠️ `docker compose down -v` removes the stored MongoDB and upload volumes.
+## API Reference
 
----
+All API routes are prefixed with `/api`. Protected routes require the JWT in the `token` request header.
 
-# 🔌 API Reference
+### Authentication and Profile
 
-All APIs use the `/api` prefix.
+| Method | Endpoint | Authentication | Description |
+| --- | --- | --- | --- |
+| POST | `/api/user/register` | Public | Register and send an OTP |
+| POST | `/api/user/verify` | Public | Verify the registration OTP |
+| POST | `/api/user/login` | Public | Log in and receive a JWT |
+| POST | `/api/user/forgot-password` | Public | Send a password reset email |
+| POST | `/api/user/reset-password/:token` | Public | Set a new password |
+| GET | `/api/user/me` | JWT | Get the current user |
+| PUT | `/api/user/profile` | JWT | Update profile and upload files |
 
-Protected endpoints require a JWT in the request header:
+### Courses and Learning
 
-```http
-token: <JWT_TOKEN>
-```
+| Method | Endpoint | Authentication | Description |
+| --- | --- | --- | --- |
+| GET | `/api/course/all` | Public | List all courses |
+| GET | `/api/course/:id` | Public | Get a course |
+| GET | `/api/lectures/:id` | JWT | Get course lectures |
+| GET | `/api/lecture/:id` | JWT | Get a lecture |
+| GET | `/api/mycourse` | JWT | Get purchased courses |
+| GET | `/api/course/:id/lectures` | JWT | Get lectures for a course |
+| POST | `/api/course/checkout/:id` | JWT | Create a Razorpay order |
+| POST | `/api/verification/:id` | JWT | Verify a Razorpay payment |
+| GET | `/api/user/analytics` | JWT | Get learning analytics |
+| POST | `/api/user/analytics/events` | JWT | Record a learning event |
+| POST | `/api/ai/ask` | JWT | Ask the AI tutor a question |
 
----
+### Admin
 
-## 👤 Authentication & Profile
+Admin routes require both a valid JWT and an account with the `admin` role.
 
-| Method | Endpoint                          | Auth   | Description                     |
-| ------ | --------------------------------- | ------ | ------------------------------- |
-| POST   | `/api/user/register`              | Public | Register user and send OTP      |
-| POST   | `/api/user/verify`                | Public | Verify registration OTP         |
-| POST   | `/api/user/login`                 | Public | Authenticate user               |
-| POST   | `/api/user/forgot-password`       | Public | Send password reset email       |
-| POST   | `/api/user/reset-password/:token` | Public | Reset password                  |
-| GET    | `/api/user/me`                    | JWT    | Get current user                |
-| PUT    | `/api/user/profile`               | JWT    | Update profile and upload files |
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/api/course/new` | Create a course and upload its image |
+| POST | `/api/course/:id` | Add lectures and video files |
+| DELETE | `/api/lecture/:id` | Delete a lecture |
+| DELETE | `/api/course/:id` | Delete a course and its media |
+| GET | `/api/stats` | View platform statistics |
 
----
-
-## 📚 Courses & Learning
-
-| Method | Endpoint                     | Auth   | Description             |
-| ------ | ---------------------------- | ------ | ----------------------- |
-| GET    | `/api/course/all`            | Public | Get all courses         |
-| GET    | `/api/course/:id`            | Public | Get course details      |
-| GET    | `/api/lectures/:id`          | JWT    | Get course lectures     |
-| GET    | `/api/lecture/:id`           | JWT    | Get lecture             |
-| GET    | `/api/mycourse`              | JWT    | Get purchased courses   |
-| GET    | `/api/course/:id/lectures`   | JWT    | Get course lectures     |
-| POST   | `/api/course/checkout/:id`   | JWT    | Create Razorpay order   |
-| POST   | `/api/verification/:id`      | JWT    | Verify Razorpay payment |
-| GET    | `/api/user/analytics`        | JWT    | Get learning analytics  |
-| POST   | `/api/user/analytics/events` | JWT    | Record learning event   |
-| POST   | `/api/ai/ask`                | JWT    | Ask AI tutor            |
-
-
----
-
-## 👨‍💼 Admin APIs
-
-Admin endpoints require:
-
-```text
-Valid JWT
-+
-admin role
-```
-
-| Method | Endpoint           | Description                    |
-| ------ | ------------------ | ------------------------------ |
-| POST   | `/api/course/new`  | Create course and upload image |
-| POST   | `/api/course/:id`  | Add lecture and upload video   |
-| DELETE | `/api/lecture/:id` | Delete lecture                 |
-| DELETE | `/api/course/:id`  | Delete course and media        |
-| GET    | `/api/stats`       | Get platform statistics        |
-
----
-
-# ❤️ Health Check
-
-The backend exposes:
+## Health Checks
 
 ```bash
 curl http://localhost:5000/health
@@ -546,327 +294,91 @@ curl http://localhost:5000/health
 Expected response:
 
 ```json
-{
-  "status": "ok"
-}
+{"status":"ok"}
 ```
 
-When running through Docker Compose:
+When using Docker Compose, the frontend Nginx proxy exposes the same check at `http://localhost/health`.
+
+## Kubernetes Deployment
+
+The `k8s/` directory contains manifests for MongoDB, the backend API, the frontend/Nginx service, persistent storage, configuration, and an Nginx Ingress.
+
+### Build and publish images
+
+Replace `YOUR_GITHUB_USERNAME` in `k8s/backend.yaml` and `k8s/frontend.yaml` with your GitHub Container Registry namespace, then build and push both images:
 
 ```bash
-curl http://localhost/health
+docker login ghcr.io
+docker build -t ghcr.io/YOUR_GITHUB_USERNAME/elearning-backend:latest ./server
+docker build --build-arg VITE_API_URL= ./frontend -t ghcr.io/YOUR_GITHUB_USERNAME/elearning-frontend:latest
+docker push ghcr.io/YOUR_GITHUB_USERNAME/elearning-backend:latest
+docker push ghcr.io/YOUR_GITHUB_USERNAME/elearning-frontend:latest
 ```
 
----
+For private GHCR images, create an image pull secret and reference it from both Deployments.
 
-# 📜 Available Scripts
+### Configure secrets
 
-## Backend
+Copy the template, replace every placeholder with a real value, and keep the resulting file out of Git:
 
 ```bash
-npm start
+cp k8s/secret.example.yaml k8s/secret.yaml
+# Edit k8s/secret.yaml
+kubectl apply -f k8s/secret.yaml
 ```
 
-Start the production server.
+The Redis URL and token are read from `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Existing environments must also add these variables to `server/.env`.
+
+### Apply the stack
+
+An Nginx Ingress Controller and a default StorageClass must already be installed in the cluster. Update the host in `k8s/ingress.yaml`, then run:
 
 ```bash
-npm run dev
+kubectl apply -k k8s/
+kubectl -n elearning get pods,services,ingress
+kubectl -n elearning rollout status statefulset/mongodb
+kubectl -n elearning rollout status deployment/backend
+kubectl -n elearning rollout status deployment/frontend
 ```
 
-Start the development server using Nodemon.
+The frontend Ingress proxies `/api`, `/uploads`, and `/health` through the Nginx configuration already included in the frontend image. Configure TLS before using the deployment for production traffic.
 
-## Frontend
+Remove the Kubernetes stack with:
 
 ```bash
-npm run dev
+kubectl delete -k k8s/
 ```
 
-Start the Vite development server.
+## Useful Scripts
+
+### Backend
 
 ```bash
-npm run build
+npm start       # Start the production server
+npm run dev     # Start with nodemon
 ```
 
-Create a production build.
+### Frontend
 
 ```bash
-npm run preview
+npm run dev     # Start Vite development server
+npm run build   # Create a production build
+npm run preview # Preview the production build
+npm run lint    # Run ESLint
 ```
 
-Preview the production build.
+## Production Notes
 
-```bash
-npm run lint
-```
+- Use strong, unique JWT and activation secrets.
+- Use Gmail app passwords or a transactional email provider; do not use a normal Gmail password.
+- Keep MongoDB, port `5000`, and Redis private.
+- Prefer AWS IAM roles over long-lived AWS access keys.
+- Keep S3 public access blocked and serve files through presigned URLs.
+- Use Razorpay production credentials only in a protected deployment environment.
+- Configure HTTPS and update `FRONTEND_URL` and S3 CORS origins for the production domain.
+- Back up MongoDB before upgrades or destructive maintenance.
+- Rotate credentials if they were ever committed, logged, or shared.
 
-Run ESLint.
+## License
 
----
-
-# 🔒 Security Considerations
-
-This project follows several security practices:
-
-* Passwords are hashed using bcrypt.
-* Authentication uses JWT.
-* Admin APIs use role-based authorization.
-* Registration uses email OTP verification.
-* Password reset uses a token-based flow.
-* Login and OTP endpoints use Redis rate limiting.
-* S3 objects remain private.
-* Media is accessed through temporary presigned URLs.
-* MongoDB should not be publicly exposed.
-* Redis credentials are stored in environment variables.
-* Payment signatures are verified server-side.
-* AWS IAM roles are preferred over long-lived access keys in production.
-* Secrets should never be committed to GitHub.
-
-### Never commit
-
-```text
-.env
-AWS credentials
-Razorpay secrets
-OpenAI API keys
-Redis tokens
-SMTP passwords
-JWT secrets
-```
-
----
-
-# 🌐 Production Deployment
-
-For production deployment:
-
-### Application
-
-* Build the React frontend using Vite.
-* Run the Express backend in production mode.
-* Use Nginx as a reverse proxy.
-* Keep backend services private where possible.
-
-### AWS
-
-Recommended architecture:
-
-```text
-                    Internet
-                       │
-                       ▼
-                ┌─────────────┐
-                │    Nginx    │
-                │   Frontend  │
-                └──────┬──────┘
-                       │
-                       ▼
-                ┌─────────────┐
-                │   Express   │
-                │   Backend   │
-                └──────┬──────┘
-                       │
-        ┌──────────────┼──────────────┐
-        ▼              ▼              ▼
-     MongoDB          S3          Redis
-                   Private       Upstash
-```
-
-For AWS deployments:
-
-* Prefer IAM roles instead of access keys.
-* Keep MongoDB and Redis private.
-* Use HTTPS.
-* Configure a production domain.
-* Update `FRONTEND_URL`.
-* Update S3 CORS configuration.
-* Use Razorpay production credentials only in the production environment.
-* Enable proper logging and monitoring.
-* Back up MongoDB before major changes.
-
----
-
-# 🧪 Example Application Flow
-
-### Student Registration
-
-```text
-Student
-   │
-   ▼
-React Registration Form
-   │
-   ▼
-POST /api/user/register
-   │
-   ├── Validate input
-   ├── Generate OTP
-   ├── Store verification data
-   ├── Apply Redis rate limit
-   └── Send OTP through Gmail SMTP
-            │
-            ▼
-       Student verifies OTP
-            │
-            ▼
-POST /api/user/verify
-            │
-            ▼
-       Account activated
-```
-
-### Course Purchase
-
-```text
-Student
-   │
-   ▼
-Select Course
-   │
-   ▼
-Create Razorpay Order
-   │
-   ▼
-Razorpay Checkout
-   │
-   ▼
-Payment Successful
-   │
-   ▼
-Server-side Signature Verification
-   │
-   ▼
-Course Added to Student Account
-```
-
-### Private Video Playback
-
-```text
-Student
-   │
-   ▼
-Request Course Lecture
-   │
-   ▼
-JWT Authentication
-   │
-   ▼
-Check Course Access
-   │
-   ▼
-Generate S3 Presigned URL
-   │
-   ▼
-Temporary URL
-   │
-   ▼
-Private S3 Video
-```
-
----
-
-# 📈 Future Improvements
-
-Potential improvements for future versions:
-
-* [ ] CI/CD pipeline using GitHub Actions
-* [ ] AWS EC2/ECS deployment
-* [ ] Infrastructure as Code using Terraform
-* [ ] HTTPS with AWS Certificate Manager
-* [ ] CloudFront CDN for media delivery
-* [ ] MongoDB Atlas production deployment
-* [ ] Centralized application logging
-* [ ] CloudWatch monitoring and alerts
-* [ ] Automated database backups
-* [ ] Course reviews and ratings
-* [ ] Advanced recommendation system
-* [ ] AI-based course recommendations
-* [ ] AI-generated course summaries
-* [ ] Student progress notifications
-* [ ] Instructor dashboard
-* [ ] Advanced learning analytics
-* [ ] Automated testing in CI/CD
-
----
-
-# 📌 Project Highlights
-
-This project demonstrates practical experience with:
-
-```text
-Full-Stack Development
-        ↓
-REST API Development
-        ↓
-JWT Authentication & RBAC
-        ↓
-Secure File Uploads
-        ↓
-AWS S3 & IAM
-        ↓
-Razorpay Payment Integration
-        ↓
-Redis Rate Limiting
-        ↓
-AI API Integration
-        ↓
-Docker & Docker Compose
-        ↓
-Nginx Reverse Proxy
-        ↓
-Production Deployment Concepts
-```
-
----
-
-# 🤝 Contributing
-
-Contributions, suggestions, and improvements are welcome.
-
-1. Fork the repository.
-2. Create a feature branch.
-
-```bash
-git checkout -b feature/your-feature
-```
-
-3. Commit your changes.
-
-```bash
-git commit -m "Add your feature"
-```
-
-4. Push the branch.
-
-```bash
-git push origin feature/your-feature
-```
-
-5. Open a Pull Request.
-
----
-
-# 📄 License
-
-This project currently does not include a public open-source license.
-
-If you plan to allow others to use, modify, or redistribute the project, add an appropriate `LICENSE` file.
-
----
-
-# 👨‍💻 Author
-
-**Pranit Pawar**
-
-B.Tech Computer Science & Engineering
-
-Interested in:
-
-* Cloud Engineering
-* DevOps
-* Backend Development
-* Distributed Systems
-* AI-powered Applications
-
----
-
-⭐ If you find this project useful, consider giving the repository a star!
+This project currently does not declare a public open-source license. Add a license file before accepting external contributions or redistributing the project.
